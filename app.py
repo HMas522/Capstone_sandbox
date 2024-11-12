@@ -3,7 +3,7 @@ from shiny.express import input, render, ui
 from shinyswatch import theme
 
 ui.page_opts(title="Hmass Dashboard", fillable=True)
- theme.journal()
+
 # theme.cerulean()
 
 with ui.sidebar(open="desktop"):
