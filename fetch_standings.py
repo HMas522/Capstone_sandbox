@@ -19,11 +19,8 @@ API_URL = "https://api-football-v1.p.rapidapi.com/v3/standings"
 
 # Mapping leagues to their respective league IDs (You can extend or modify this list)
 LEAGUE_IDS = {
-    "English Premier League": 39,
-    "La Liga": 140,
-    "Serie A": 135,
-    "Bundesliga": 78,
-    "Ligue 1": 61
+    "English Premier League": 39
+    
 }
 
 # Function to fetch standings from the API
