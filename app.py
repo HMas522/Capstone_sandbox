@@ -23,12 +23,12 @@ app_ui = ui.page_fluid(
 # Define the server function
 def server(input, output, session):
     
-    @output()
+    @output()  # type: ignore
     @render.data_frame
     def frame():
         return dat()
     
-    @output()
+    @output() # type: ignore
     @render.table
     def table():
         return dat()
