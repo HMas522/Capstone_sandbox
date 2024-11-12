@@ -29,4 +29,4 @@ jobs:
             SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
         run: |
             pip install rsconnect-python
-            rsconnect deploy shiny . --title Capstone_sandbox
+            rsconnect deploy shiny . --name Hmas522 --title Capstone_sandbox
