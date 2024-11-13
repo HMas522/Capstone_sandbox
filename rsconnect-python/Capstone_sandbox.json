@@ -1,0 +1,12 @@
+{
+    "https://api.shinyapps.io": {
+        "server_url": "https://api.shinyapps.io",
+        "filename": "C:\\Users\\Hayley\\Capstone_sandbox",
+        "app_url": "https://hmas522.shinyapps.io/capstone_sandbox/",
+        "app_id": 13320880,
+        "app_guid": null,
+        "title": "Capstone_sandbox",
+        "app_mode": "python-shiny",
+        "app_store_version": 1
+    }
+}
