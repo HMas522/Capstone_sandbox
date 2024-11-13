@@ -2,7 +2,7 @@
 from shiny.express import input, render, ui
 from shinyswatch import theme
 
-ui.page_opts(title="Hmass522 Dashboard", fillable=True)
+ui.page_opts(title="Hmass Dashboard", fillable=True)
 # theme.minty()
 # theme.cerulean()
 
