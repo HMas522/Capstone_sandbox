@@ -1,50 +1,44 @@
-"""
-Purpose: Use Python to create a continuous intelligence and 
-interactive analytics dashboard using Shiny for Python with 
-interactive charts from HoloViews Bokeh and Plotly Express.
+from pathlib import Path
+import pandas as pd
+from shiny import App, ui, render, reactive
+import shinyswatch  # For themes
 
-Each Shiny app has two parts: 
+# Define the reactive data fetching function
+@reactive.calc
+def dat() -> pd.DataFrame:
+    infile = Path(__file__).parent / "English_Premier_League_standings.csv"
+    return pd.read_csv(infile)
 
-- a user interface app_ui object (similar to the HTML in a web page) 
-- a server function that provides the logic for the app (similar to JS in a web page).
-
-"""
-from shiny import App, ui
-import shinyswatch
-
-from mtcars_server import get_mtcars_server_functions
-from mtcars_ui_inputs import get_mtcars_inputs
-from mtcars_ui_outputs import get_mtcars_outputs
-
-
-from util_logger import setup_logger
-
-logger, logname = setup_logger(__name__)
-
+# Define the UI with shinyswatch theme
 app_ui = ui.page_navbar(
-    shinyswatch.theme.journal(),
-    ui.nav(
-        "MT_Cars",
-        ui.layout_sidebar(
-            get_mtcars_inputs(),
-            get_mtcars_outputs(),
+    shinyswatch.theme.journal(),  # Apply the journal theme from shinyswatch
+    ui.navset_card_underline(  # Set up a tabbed navigation layout
+        ui.nav_panel("Data frame", 
+            ui.output_data_frame("frame")  # Output for the data frame tab
         ),
-    ),
-    
-    ui.nav(ui.a("About", href="https://github.com/HMas522")),
-    ui.nav(ui.a("GitHub", href="https://github.com/HMas522/cintel-04-reactive")),
-    ui.nav(ui.a("App", href="https://HMas522.shinyapps.io/cintel-04-reactive/")),
-    ui.nav(ui.a("Examples", href="https://shinylive.io/py/examples/")),
-    ui.nav(ui.a("Widgets", href="https://shiny.rstudio.com/py/docs/ipywidgets.html")),
-    title=ui.h1("Hmas522 Dashboard"),
+        ui.nav_panel("Table", 
+            ui.output_table("table")  # Output for the table tab
+        )
+    )
 )
 
-
+# Define the server function
 def server(input, output, session):
-    """Define functions to create UI outputs."""
-
-    logger.info("Starting server...")
-    get_mtcars_server_functions(input, output, session)
+    # Render the data frame for the "Data frame" tab
+    @output()
+    @render.data_frame
+    def frame() -> pd.DataFrame:
+        return dat()
     
-# app = App(app_ui, server, debug=True)
+    # Render the table for the "Table" tab
+    @output()
+    @render.table
+    def table() -> pd.DataFrame:
+        return dat()
+
+# Create the app
 app = App(app_ui, server)
+
+# Run the app
+if __name__ == "__main__":
+    app.run()
