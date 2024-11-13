@@ -1,7 +1,7 @@
 from pathlib import Path
 import pandas as pd
 from shiny import App, ui, render, reactive
-import shinyswatch  # Import shinyswatch for themes
+
 
 # Define the reactive data fetching function
 @reactive.calc
@@ -11,7 +11,6 @@ def dat() -> pd.DataFrame:
 
 # Define the UI using the shinyswatch theme
 app_ui = ui.page_navbar(
-    shinyswatch.theme.journal(),  # Apply the journal theme from shinyswatch
     ui.navset_card_underline(
         ui.nav_panel("Data frame", 
             ui.output_data_frame("frame")
