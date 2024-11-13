@@ -12,17 +12,35 @@ Each Shiny app has two parts:
 from shiny import App, ui
 import shinyswatch
 
+from flights_server import get_flights_server_functions
+from flights_ui_inputs import get_flights_inputs
+from flights_ui_outputs import get_flights_outputs
+
 from mtcars_server import get_mtcars_server_functions
 from mtcars_ui_inputs import get_mtcars_inputs
 from mtcars_ui_outputs import get_mtcars_outputs
 
+from penguins_server import get_penguins_server_functions
+from penguins_ui_inputs import get_penguins_inputs
+from penguins_ui_outputs import get_penguins_outputs
+
+from relationships_server import get_relationships_server_functions
+from relationships_ui_inputs import get_relationships_inputs
+from relationships_ui_outputs import get_relationships_outputs
 
 from util_logger import setup_logger
 
 logger, logname = setup_logger(__name__)
 
 app_ui = ui.page_navbar(
-    shinyswatch.theme.journal(),
+    shinyswatch.theme.vapor(),
+    ui.nav(
+        "Flights",
+        ui.layout_sidebar(
+            get_flights_inputs(),
+            get_flights_outputs(),
+        ),
+    ),
     ui.nav(
         "MT_Cars",
         ui.layout_sidebar(
@@ -30,7 +48,20 @@ app_ui = ui.page_navbar(
             get_mtcars_outputs(),
         ),
     ),
-    
+    ui.nav(
+        "Penguins",
+        ui.layout_sidebar(
+            get_penguins_inputs(),
+            get_penguins_outputs(),
+        ),
+    ),
+    ui.nav(
+        "Relationships",
+        ui.layout_sidebar(
+            get_relationships_inputs(),
+            get_relationships_outputs(),
+        ),
+    ),
     ui.nav(ui.a("About", href="https://github.com/HMas522")),
     ui.nav(ui.a("GitHub", href="https://github.com/HMas522/cintel-04-reactive")),
     ui.nav(ui.a("App", href="https://HMas522.shinyapps.io/cintel-04-reactive/")),
@@ -44,7 +75,11 @@ def server(input, output, session):
     """Define functions to create UI outputs."""
 
     logger.info("Starting server...")
+    get_flights_server_functions(input, output, session)
     get_mtcars_server_functions(input, output, session)
-    
+    get_penguins_server_functions(input, output, session)
+    get_relationships_server_functions(input, output, session)
+
+
 # app = App(app_ui, server, debug=True)
 app = App(app_ui, server)
