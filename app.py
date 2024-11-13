@@ -23,8 +23,7 @@ logger, logname = setup_logger(__name__)
 
 app_ui = ui.page_navbar(
     shinyswatch.theme.journal(),
-    
-    ui.nav(
+    ui.navset_card_underline()(
         "MT_Cars",
         ui.layout_sidebar(
             get_mtcars_inputs(),
@@ -32,11 +31,11 @@ app_ui = ui.page_navbar(
         ),
     ),
     
-    ui.nav(ui.a("About", href="https://github.com/HMas522")),
-    ui.nav(ui.a("GitHub", href="https://github.com/HMas522/cintel-04-reactive")),
-    ui.nav(ui.a("App", href="https://HMas522.shinyapps.io/cintel-04-reactive/")),
-    ui.nav(ui.a("Examples", href="https://shinylive.io/py/examples/")),
-    ui.nav(ui.a("Widgets", href="https://shiny.rstudio.com/py/docs/ipywidgets.html")),
+    ui.navset_card_underline()(ui.a("About", href="https://github.com/HMas522")),
+    ui.navset_card_underline()(ui.a("GitHub", href="https://github.com/HMas522/cintel-04-reactive")),
+    ui.navset_card_underline()(ui.a("App", href="https://HMas522.shinyapps.io/cintel-04-reactive/")),
+    ui.navset_card_underline()(ui.a("Examples", href="https://shinylive.io/py/examples/")),
+    ui.navset_card_underline()(ui.a("Widgets", href="https://shiny.rstudio.com/py/docs/ipywidgets.html")),
     title=ui.h1("Hmas522 Dashboard"),
 )
 
